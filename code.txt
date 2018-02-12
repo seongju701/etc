@@ -1,0 +1,105 @@
+
+//alert check
+ if ("아이디를 입력해주세요.".equals(driver.switchTo().alert().getText())) {
+        System.out.println("Success");
+        assertTrue(true);
+        return;
+     } else {
+         System.out.println("Failure");
+        assertTrue(false);
+     }
+	 
+// text check
+         if ("로그인".equals(driver.findElement(By.xpath(".//*[@id='login_area']/form/div/div/div[2]/input")).getText())) {
+            System.out.println("[TC_117] success");
+            assertTrue(true);
+            return;
+         } else {
+            System.out.println("[TC_117] failure : '로그인' Text 불일치");
+            assertTrue(false);
+			}
+// gettext
+
+    WebElement aa = driver.findElement(By.xpath(""));
+             System.out.println(aa.getText());
+//getalert
+
+         System.out.println("Alert text is: " +driver.switchTo().alert().getText());
+         System.out.println(driver.switchTo().alert().getText());
+		 
+//titlecheck
+
+ if ("Oshopping Smart - CJmall1".equals(driver.getTitle())) {
+    	System.out.println(driver.getTitle());
+        assertTrue(true);
+        return;
+     } else {
+        System.out.println("타이틀 Fail");
+        assertTrue(false);
+     }
+
+//Popup
+
+ WebElement searchButton = driver.findElement(By.xpath(".//*[@id='base_layer']/div/div"));
+	    if(searchButton.isDisplayed())
+	    {
+	    	driver.findElement(By.xpath("//*[@id='close_layer']")).click();
+	    }
+		
+//Alert Close
+Alert alert = driver.switchTo().alert();
+		alert.accept();
+		
+// 예외처리
+boolean isExist = false;
+		//팝업닫기
+		isExist = existElement(driver, By.xpath("//*[@id='notToday']"), "오늘 하루 보지 않기");
+		if (isExist) {
+			driver.findElement(By.xpath("//*[@id='popup_spot']/div/div/div/div[2]/button")).click();
+			System.out.println("닫기버튼 클릭");
+		} else {
+			System.out.println("팝업 없음");
+		}
+		System.out.println("팝업닫기");
+		Thread.sleep(3000);
+//스크롤 내리기
+WebElement searchBtn = driver.findElement(By.xpath("//*[@id='footer']/div[1]/div[3]/ul/li[1]/a"));
+		Actions action = new Actions(driver);
+		action.moveToElement(searchBtn).perform();
+		
+		
+// 상담신청 체크
+		isExist1 = existElement(driver, By.xpath(".//*[@id='liveRepItem']/a[2]"), "상담신청");
+		if (isExist1 == driver.findElement(By.xpath(".//*[@id='liveRepItem']/a[2]")).getText().equals("상담신청")) {
+			System.out.println("상담신청상품 입니다.");
+			assertTrue(true);
+			return;
+		}
+		
+// 상담신청 체크2
+		if (driver.findElement(By.xpath("//*[@id='scheduleItem']/div[2]/ul/li/a/div[2]/div/span")).getText().equals("상담신청 상품")) {
+			System.out.println("상담신청상품 입니다.");
+			assertTrue(true);
+			return;
+		}
+	
+// popup
+
+ String MainWindow=driver.getWindowHandle();		
+        		
+        // To handle all new opened window.				
+            Set<String> s1=driver.getWindowHandles();		
+        Iterator<String> i1=s1.iterator();		
+        		System.out.println("1");
+        while(i1.hasNext())			
+        {		
+            String ChildWindow=i1.next();		
+            		
+            if(!MainWindow.equalsIgnoreCase(ChildWindow))			
+            {   
+					//팝업내 스텝
+            }		
+        }	
+		   driver.switchTo().window(MainWindow);	
+		   
+		
